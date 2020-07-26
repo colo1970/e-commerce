@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}A propos!{% endblock %}
+
+{% block body %}
+<div class="sub_page">
+    <div class="hero_area">
+      <!-- header section strats -->
+      {{include('_forms/_header.html.twig')}}
+      <!-- end header section -->
+    </div>
+
+    <!-- nav section -->
+    {{include('_forms/_navbar.html.twig')}}
+    <!-- end nav section -->
+
+    <!-- about section -->
+    {{include('_forms/_about.html.twig')}}
+    <!-- end about section -->
+
+    <!-- info section -->
+    {{include('_forms/_infos.html.twig')}}
+    <!-- end info section -->
+
+    <!-- footer section -->
+    {{include('_forms/_footer.html.twig')}}
+    <!-- end footer section -->
+</div>
+{% endblock %}

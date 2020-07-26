@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nos Fruits!{% endblock %}
+
+{% block body %}
+   
+<div class="sub_page">
+  <div class="hero_area">
+    <!-- header section strats -->
+    {{include('_forms/_header.html.twig')}}
+    <!-- end header section -->
+  </div>
+  <!-- nav section -->
+  {{include('_forms/_navbar.html.twig')}}
+  <!-- end nav section -->
+
+  <!-- fruit section -->
+  <section class="fruit_section layout_padding">
+     {{include('_forms/_produits.html.twig')}}
+  </section>
+  <!-- end fruit section -->
+
+  <!-- info section -->
+  {{include('_forms/_infos.html.twig')}}
+  <!-- end info section -->
+  
+  <!-- footer section -->
+  {{include('_forms/_footer.html.twig')}}
+    <!-- footer section -->
+</div>
+{% endblock %}
