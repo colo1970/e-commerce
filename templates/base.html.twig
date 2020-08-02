@@ -29,13 +29,11 @@
     </head>
 
     <body>
-    
-
+        {% block body %}{% endblock %}
+        
+    </body>
+    {% block javascripts %}{% endblock %}
     <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.js"></script>
     <script type="text/javascript" src="js/custom.js"></script>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
 </html>
