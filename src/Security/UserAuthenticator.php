@@ -99,7 +99,11 @@ class UserAuthenticator extends AbstractFormLoginAuthenticator implements Passwo
         return new RedirectResponse($this->urlGenerator->generate('home_index'));
         throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }
-
+    
+    public function forgettenPassword()
+    {
+        return $this->render('security/forgetten_password.html.twig');
+    }
     protected function getLoginUrl()
     {
         return $this->urlGenerator->generate(self::LOGIN_ROUTE);
