@@ -1,22 +1,37 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}Inscription{% endblock %}
 
 {% block body %}
 <div class="sub_page">
-    <div class="hero_area">
-      <!-- header section strats -->
-      {{include('_forms/_header.html.twig')}}
-      <!-- end header section -->
-    </div>
+  <div class="hero_area">
+    <!-- header section strats -->
+     {{include('_forms/_header.html.twig')}}
+    <!-- end header section -->
+  </div>
 
-    <!-- nav section -->
-    {{include('_forms/_navbar.html.twig')}}
-    <!-- end nav section -->
-        <div class="container mt-2">
-            <div class="row justify-content-center align-items-center">
-                <form method="post">
-                {% if error %}
+  <!-- nav section -->
+   {{include('_forms/_navbar.html.twig')}}
+  <!-- end nav section -->
+
+
+  <!-- contact section -->
+  <section class="contact_section layout_padding">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="offset-lg-2 col-md-10 offset-md-1">
+          <div class="heading_container">
+            <hr>
+            <h4>Connexion </h4>
+          </div>
+        </div>
+      </div>
+      <div class="layout_padding2-top">
+        <div class="row">
+          <div class="col-lg-4 offset-lg-2 col-md-5 offset-md-1">
+            <form method="post">
+              <div class="contact_form-container">
+			     {% if error %}
                     <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                 {% endif %}
 
@@ -25,36 +40,34 @@
                         You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
                     </div>
                 {% endif %}
-
-                <h1 class="h3 mb-3 font-weight-normal">Connection</h1>
-                <input type="email" placeholder="Email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
-                <input type="password" placeholder="Mot de passe" name="password" id="inputPassword" class="form-control" required>
-
-                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-
-                {#
-                    Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-                    See https://symfony.com/doc/current/security/remember_me.html
-
-                    <div class="checkbox mb-3">
-                        <label>
-                            <input type="checkbox" name="_remember_me"> Remember me
-                        </label>
-                    </div>
-                #}
-
-                <div class="mt-2">
-                    <button class="btn btn-lg btn-primary" type="submit"> Se connecter </button>
+                <div>
+                  <div>
+                    <input type="email" placeholder="Email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
+                  </div>
+				  <div>
+                    <input type="password" placeholder="Mot de passe" name="password" id="inputPassword" class="form-control" required>
+					 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                  </div>
+                  <div>
+                    <button type="submit">Connexion</button>
+                  </div>
                 </div>
+              </div>
             </form>
+          </div>
+        
         </div>
-     </div>
-    <!-- info section -->
-    {{include('_forms/_infos.html.twig')}}
-    <!-- end info section -->
+      </div>
+    </div>
+  </section>
+  <!-- end contact section -->
+
+  <!-- info section -->
+   {{include('_forms/_infos.html.twig')}}
+  <!-- end info section -->
 
     <!-- footer section -->
     {{include('_forms/_footer.html.twig')}}
     <!-- end footer section -->
-</div>
+   </div>
 {% endblock %}
