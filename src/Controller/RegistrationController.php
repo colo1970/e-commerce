@@ -3,15 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\ResetPassType;
 use App\Form\RegistrationFormType;
 use App\Repository\UserRepository;
 use App\Security\UserAuthenticator;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class RegistrationController extends AbstractController
 {
@@ -73,4 +74,16 @@ class RegistrationController extends AbstractController
         $manager->flush();
         return $this->redirectToRoute('home_index');
     }
+    /**
+     * Demande d'email 
+     * @Route("/passe-oublie", name="registration_forgotten")
+     */
+    public function forgottenPass(Request $request)
+    {
+        $form = $this->createForm(ResetPassType::class);
+        return $this->render('registration/forgotten_pass.html.twig',[
+            'form'=>$form->createView()
+        ]);
+    }
+
 }
