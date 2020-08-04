@@ -24,6 +24,11 @@
             <hr>
             <h4>Mot de passe oublié </h4>
           </div>
+          {% for message in app.flashes('danger') %}
+             <div class="alert-danger">
+                 {{message}}
+             </div>
+          {% endfor %}  
         </div>
       </div>
       <div class="layout_padding2-top">
