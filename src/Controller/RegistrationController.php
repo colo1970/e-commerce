@@ -43,7 +43,7 @@ class RegistrationController extends AbstractController
             $entityManager->flush();
             // do anything else you need here, like send an email
             $message = (new \Swift_Message('Activation de votre compte'))
-            ->setFrom('o.daffe@yahoo.fr')
+            ->setFrom('fruitslegumesguinee@gmail.com')
             ->setTo($user->getEmail())
             ->setBody(
                 $this->renderView('emails/activation.html.twig',['token'=> $user->getActivationToken()]),
@@ -106,10 +106,10 @@ class RegistrationController extends AbstractController
             $url = $this->generateUrl('registration_reset', ['token'=>$token], UrlGeneratorInterface::ABSOLUTE_URL);
             //Envoyer message user
             $message = (new \Swift_Message('Mot de passe oublié'))
-            ->setFrom('votre@adresse.fr')
+            ->setFrom('fruitslegumesguinee@gmail.com')
             ->setTo($user->getEmail())
             ->setBody("Bonjour,<br><br>Une demande de réinitialisation de mot de passe a été effectuée pour le site Guinée Fruits&Legumes.com. 
-                 Veuillez cliquer sur le lien suivant : <a href=$url> Modifier email </a>", 
+                 Veuillez cliquer sur le lien suivant : <a href=$url> Modifier mot de passe </a>", 
                  'text/html' 
             ) ;
             // On envoie l'e-mail
