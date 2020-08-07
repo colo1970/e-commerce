@@ -152,4 +152,28 @@ class RegistrationController extends AbstractController
             'token'=>$token
         ]);
     }
+
+     /**
+    * @Route("/infos", name="registration_infos")
+    */
+    public function infos()
+    {
+        return $this->render('registration/mes_infos.html.twig');
+    }
+
+      /**
+    * @Route("/edit-info", name="registration_edit_infos")
+    */
+    public function editInfo()
+    {
+        return $this->render('registration/edit_infos.html.twig');
+    }
+
+      /**
+    * @Route("/change-password", name="registration_change_password")
+    */
+    public function changePassword()
+    {
+        return $this->render('registration/change_password.html.twig');
+    }
 }

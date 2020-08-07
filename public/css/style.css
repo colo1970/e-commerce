@@ -719,5 +719,15 @@ a:focus {
   color: #222222;
 }
 
+.cart_color {
+  background-color:#3d9106;
+  color: #ffffff;
+}
+
+.cart_body {
+  margin: 0;
+  text-align: left;
+  color: #222222;
+}
 /* end footer section*/
 /*# sourceMappingURL=style.css.map */

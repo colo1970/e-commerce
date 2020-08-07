@@ -8,21 +8,6 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends AbstractController
 {
     /**
-     * @Route("/", name="home_index")
-     */
-    public function index()
-    {
-        return $this->render('home/index.html.twig');
-    }
-    /**
-     * @Route("/fruit", name="home_fruit")
-     */
-    public function fruit()
-    {
-        return $this->render('home/fruit.html.twig');
-    }
-
-    /**
      * @Route("/apropos", name="home_apropos")
      */
     public function propos()
@@ -46,11 +31,5 @@ class HomeController extends AbstractController
         return $this->render('home/contact.html.twig');
     }
 
-    /**
-     * @Route("/panier", name="panier")
-     */
-    public function panier()
-    {
-        return $this->render('home/panier.html.twig');
-    }
+  
 }
