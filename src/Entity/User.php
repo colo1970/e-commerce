@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -45,6 +47,24 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $reset_token;
+
+    /**
+     * @ORM\OneToMany(targetEntity=UserAdresses::class, mappedBy="user", cascade={"remove"})
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $userAdresses;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Commandes::class, mappedBy="user",cascade={"remove"})
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $commandes;
+
+    public function __construct()
+    {
+        $this->userAdresses = new ArrayCollection();
+        $this->commandes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -144,6 +164,68 @@ class User implements UserInterface
     public function setResetToken(string $reset_token): self
     {
         $this->reset_token = $reset_token;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserAdresses[]
+     */
+    public function getUserAdresses(): Collection
+    {
+        return $this->userAdresses;
+    }
+
+    public function addUserAdress(UserAdresses $userAdress): self
+    {
+        if (!$this->userAdresses->contains($userAdress)) {
+            $this->userAdresses[] = $userAdress;
+            $userAdress->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserAdress(UserAdresses $userAdress): self
+    {
+        if ($this->userAdresses->contains($userAdress)) {
+            $this->userAdresses->removeElement($userAdress);
+            // set the owning side to null (unless already changed)
+            if ($userAdress->getUser() === $this) {
+                $userAdress->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Commandes[]
+     */
+    public function getCommandes(): Collection
+    {
+        return $this->commandes;
+    }
+
+    public function addCommande(Commandes $commande): self
+    {
+        if (!$this->commandes->contains($commande)) {
+            $this->commandes[] = $commande;
+            $commande->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommande(Commandes $commande): self
+    {
+        if ($this->commandes->contains($commande)) {
+            $this->commandes->removeElement($commande);
+            // set the owning side to null (unless already changed)
+            if ($commande->getUser() === $this) {
+                $commande->setUser(null);
+            }
+        }
 
         return $this;
     }
