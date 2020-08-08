@@ -38,7 +38,7 @@ class UserAdresses
     private $cp;
 
     /**
-     * @ORM\Column(type="string", length=10)
+     * @ORM\Column(type="string", length=100)
      */
     private $adresse;
 
