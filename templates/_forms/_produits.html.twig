@@ -16,8 +16,11 @@
                     <h4 class="col-md-4"><a href="#">Orange</a></h4>
                     <h4 class="col-md-4">{{prix|calculTtcProduit(0.8)}}</h4> 
                 </div>
-                 <a class="btn btn-success" href="{{path('panier_ajout',{id:produit.id})}}">Ajouter au panier</a> 
-                 <a class="btn btn-primary" href="">Plus d'infos</a>
+                <!--S'il y a un produit dans mon panier j'affiche son bouton ajouter au panier -->
+                {% if panier[produit.id] is not defined %}
+                  <a class="btn btn-success" href="{{path('panier_ajout',{id:produit.id})}}">Ajouter au panier</a> 
+                {% endif %}
+                  <a class="btn btn-primary" href="">Plus d'infos</a>
             </div>
         {% endfor %}
     </div>
