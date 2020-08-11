@@ -35,60 +35,92 @@
           </div>
       
       <div class="col-lg-9">
+      {% for message in app.flashes('success') %}
+        <div class="alert-info">
+        {{message}}
+        </div>
+      {% endfor %}
+      {% if produits|length == 0 %}
+        <tr>
+            <td colspan="4"><center>Aucun articles dans votre panier</center></td>
+        </tr>
+      {% endif %}
         <div class="card shopping-cart">
             <div class="card-header bg-dark text-light">
                 <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                     Mon panier
-                <a href="" class="btn btn-outline-info btn-sm pull-right">Continuer mes achats</a>
+                <a href="{{path('produits_index')}}" class="btn btn-outline-info btn-sm pull-right">Continuer mes achats</a>
                 <div class="clearfix"></div>
             </div>
             <div class="card-body">
+            {# Déclaration de variables pour calculer le totalht et totalttc#}
+            {% set totalHT = 0 %}
+            {% set totalTTC = 0 %}
+            {# Pour calculer le coût de la TVA , je vais déclarer un tableau vide retTva #}
+            {% set refTva = {} %}
+
             <!-- PRODUCT -->
-                {% for item in 1..3 %}
+                {% for produit in produits %}
                     <div class="row">
                         <div class="col-12 col-sm-12 col-md-2 text-center">
                             <img class="img-responsive" src="http://placehold.it/120x80" alt="prewiew" width="100" height="60">
                         </div>
-                        <div class="col-12 text-sm-center col-sm-12 text-md-left col-md-6">
-                            <strong>Mangues</strong>
-                           
+                        <div class="col-12 text-sm-center col-sm-12 text-md-left col-md-4">
+                            <h5>{{produit.nom}}</h5> 
                         </div>
-                        <div class="col-12 col-sm-12 text-sm-center col-md-4 text-md-right row">
-                            <div class="col-3 col-sm-3 col-md-6 text-md-right" style="padding-top: 5px">
-                                <h6><strong>542 725.00 <span class="text-muted">x</span></strong></h6>
-                            </div>
+                        <div class="col-12 col-sm-12 text-sm-center col-md-6 text-md-right row">
                             <div class="col-4 col-sm-4 col-md-4">
-                                <div class="quantity">
-                                    <input type="button" value="+" class="plus">
-                                    <input type="number" step="1" max="99" min="1" value="1" title="Qty" class="qty" size="4">
-                                    <input type="button" value="-" class="minus">
-                                </div>
+                              <form action="{{ path('panier_ajout', { 'id' : produit.id }) }}" method="get">
+                                <select name="qte" class="quantity" onChange="this.form.submit()">
+                                    {% for i in 1..10 %} {# la quantité va de 1 à 10 #}
+                                      <option value="{{i}}"  {% if i == panier[produit.id] %} selected="selected" {% endif %}>
+                                           {{i}}
+                                     </option>
+                                    {% endfor %}
+                                </select>
+                              </form>
+                                  <a href="{{ path('panier_prod_sup', {'id' : produit.id }) }}"> 
+                                 <i class="fa fa-trash" aria-hidden="true"></i>
+                              </a>
                             </div>
-                            <div class="col-2 col-sm-2 col-md-2 text-right">
-                                <button type="button" class="btn btn-outline-danger btn-xs">
-                                    <i class="fa fa-trash" aria-hidden="true"></i>
-                                </button>
+                            <div class="col-4 col-sm-4 col-md-4 text-right">
+                                <h6><strong>{{produit.prixht}}</strong></h6>
                             </div>
+                            <div class="col-4 col-sm-4 col-md-4 text-md-right">
+                               <h6><strong>{{produit.prixht * panier[produit.id]}}</strong></h6>
+                            </div>
+                           
                         </div>
                     </div>
                     <hr>
+                    <!-- permet d'avoir les valeurs successives de la tva sans repetiotion; panier[produit.id]=qte --> 
+                  {% set refTva = refTva|merge({('%'~produit.tva.valeur):0}) %}
+                  {% set totalHT = totalHT + (produit.prixht * panier[produit.id]) %}
+                  {% set totalTTC = totalTTC +(produit.prixht * panier[produit.id])|calculTtcProduit(produit.tva.multiplicateur)%}
+                  {% set refTva = refTva|merge({('%' ~produit.tva.valeur) : refTva['%' ~produit.tva.valeur] + 
+                     (produit.prixht * panier[produit.id])|montantTva(produit.tva.multiplicateur) }) %}
                 {% endfor %}
               <!-- END PRODUCT --> 
-             
+                   {% if produits|length != 0 %}
                 <div class="totals">
                     <div class="totals-item">
                         <label>Total HT</label>
-                        <div class="totals-value" id="cart-subtotal">1 785 691.97</div>
+                        <div class="totals-value" id="cart-subtotal">{{totalHT}}</div>
                     </div>
+               
                     <div class="totals-item">
-                        <label>TVA %20</label>
-                        <div class="totals-value" id="cart-tax">11 782 523.60</div>
+                      {% for key, tva in refTva %}
+                          <label>TVA {{ key }} : </label>  <div class="totals-value" id="cart-tax">{{tva}}</div>
+                      {% endfor %}
+                     
                     </div>
                     <div class="totals-item">
                         <label>Total TTC</label>
-                        <div class="totals-value" id="cart-tax">12 782 523.60</div>
+                        <div class="totals-value" id="cart-tax">{{totalTTC}}</div>
                     </div>
-                    <a href="" class="btn btn-success pull-left">Valider mon panier</a> 
+                    <a href="" class="btn btn-success pull-right">Valider mon panier</a> 
+                    <a href="produits_index" class="btn btn-primary">Continuer mes achats</a>
+                  {% endif %}
                 </div>
           </div>
       </div>

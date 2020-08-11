@@ -18,6 +18,17 @@ class ProduitsRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Produits::class);
     }
+   
+    /*
+    *Renvoie les produits par id (contenu dans array panier)
+    */
+   public function findByIdPanier($panier) {
+        $qb = $this->createQueryBuilder('p')
+                ->select('p')
+                ->where('p.id IN(:panier)')
+                ->setParameter('panier', $panier);
+        return $qb->getQuery()->getResult();
+    }
 
     // /**
     //  * @return Produits[] Returns an array of Produits objects
