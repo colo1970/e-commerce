@@ -1,0 +1,11 @@
+
+<a href="{{ path('panier_index') }}" class="nav-link">
+    {% if nbProduitsPanier == 0 %}
+        <i class="fa fa-shopping-cart"> 0 Produit</i> 
+    {% elseif nbProduitsPanier == 1 %}
+        <i class="fa fa-shopping-cart"> 1 Produit </i>
+    {% else %}
+       <i class="fa fa-shopping-cart"> {{ nbProduitsPanier }} Produits</i> 
+    {% endif %}
+</a>
+  

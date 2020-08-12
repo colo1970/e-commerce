@@ -20,7 +20,7 @@
                 {% if panier[produit.id] is not defined %}
                   <a class="btn btn-success" href="{{path('panier_ajout',{id:produit.id})}}">Ajouter au panier</a> 
                 {% endif %}
-                  <a class="btn btn-primary" href="">Plus d'infos</a>
+                  <a class="btn btn-primary" href="{{path('produits_presentation', {id:produit.id})}}">Plus d'infos</a>
             </div>
         {% endfor %}
     </div>

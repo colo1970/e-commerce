@@ -1,0 +1,46 @@
+<section class="about_section">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 px-0">
+                <div class="img-box">
+                    <img src="{{asset('images/about-img.jpg')}}" alt="">
+                </div>
+            </div>
+        <div class="col-md-5">
+            <div class="detail-box">
+                <div class="heading_container">
+                    <h4> {{produit.categorie.nom}} {{produit.nom}}</h4>
+                    <h3>{{produit.prixht|calculTtcProduit(produit.tva.multiplicateur)}} €</h3>                    
+                </div>
+                <p>
+                There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in
+                 some form, by injected humour. There are many variations of passages of Lorem Ipsum available, but the majority have suffered
+                  alteration in some form, by injected humour
+                </p>
+           
+                   <div class="col-12 col-sm-12 text-sm-center col-md-12 text-md-left row">
+                    {% if panier[produit.id] is not defined %}
+                            <div class="col-6 col-sm-6 col-md-6">
+                              <form action="{{ path('panier_ajout', { 'id' : produit.id }) }}" method="get">
+                                <select name="qte" class="quantity">
+                                    {% for i in 1..10 %} {# la quantité va de 1 à 10 #}
+                                      <option value="{{i}}">
+                                           {{i}}
+                                     </option>
+                                    {% endfor %}
+                                </select>
+                                  <div>
+                                    <br/><button class="btn btn-primary">Ajouter au panier</button>
+                                </div>
+                              </form>
+                                {% else %}
+                            <div>
+                                <a href="{{path('panier_index')}}" class="btn btn-primary">Le produit est déjà dans votre panier</a>
+                            </div>
+                        {% endif %}
+                            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</section>

@@ -11,19 +11,19 @@
             <div class="d-flex  flex-column flex-lg-row align-items-center">
             <ul class="navbar-nav  ">
                 <li class="nav-item active">
-                <a class="nav-link" href="{{path('produits_index')}}">Accueil <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="{{path('produits_produits')}}">Accueil <span class="sr-only">(current)</span></a>
                 </li>
                 {# <li class="nav-item">
                 <a class="nav-link" href="{{path('apropos')}}">A propos </a>
                 </li> #}
                 <li class="nav-item">
-                <a class="nav-link" href="{{path('produits_fruit')}}">Nos Fruits </a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" href="{{path('panier_index')}}">Panier</a>
+                <a class="nav-link" href="{#{path('produits_fruit')}#}">Nos Fruits </a>
                 </li>
                 <li class="nav-item">
                 <a class="nav-link" href="{{path('app_login')}}">Connexion</a>
+                </li>
+                <li class="nav-item">
+                   {{render(path('panier_quantite_dans_panier'))}}
                 </li>
             </ul>
             <form class="form-inline my-2 my-lg-0 ml-0 ml-lg-4 mb-3 mb-lg-0">
