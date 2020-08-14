@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}A propos!{% endblock %}
+{% block title %}Inscription{% endblock %}
 
 {% block body %}
 <div class="sub_page">
@@ -14,37 +14,74 @@
     {{include('_menus/_navbar.html.twig')}}
   <!-- end nav section -->
 
-
   <!-- contact section -->
   <section class="contact_section layout_padding">
     <div class="container-fluid">
-      <div class="row">
-        <div class="offset-lg-2 col-md-10 offset-md-1">
-          <div class="heading_container">
-            <hr>
-            <h4>
-              Livraison
-            </h4>
-          </div>
+        <div class="row">
+              <div class="offset-lg-2 col-md-10 offset-md-1">
+                    <div class="heading_container">
+                        <hr>
+                        <h4>Livraison </h4>                       
+                    </div>
+                    {% for message in app.flashes('messages') %}
+                            <div class="alert-danger">
+                                {{message}}
+                            </div>
+                    {% endfor %}
+              </div>
         </div>
-      </div>
-
       <div class="layout_padding2-top">
         <div class="row">
-          <div class="col-lg-4 offset-lg-2 col-md-5 offset-md-1">
-            {{form_start(form)}}
-                {{form_widget(form)}}
-              <div class="contact_form-container">
-                <div>
-                  <div>
-                    <button type="submit">
-                      Ajouter
-                    </button>
-                  </div>
-                </div>
-              </div>
-            {{form_end(form)}}
-          </div>
+            <div class="col-lg-2 col-md-2">
+                {{form_start(form)}}
+                  {{form_widget(form)}}
+                    <div class="contact_form-container">
+                          <div>
+                                <div>
+                                  <button type="submit">
+                                    Ajouter
+                                  </button>
+                                </div>
+                          </div>
+                    </div>
+                {{form_end(form)}}
+            </div>
+            <div class="col-lg-8 col-md-8">
+             {# lister nos adresses on verifie d'abord si l’adresse utilisateur est different de 0, on afffiche les adresses à côte gauche #}
+              {% if user.userAdresses|length != 0 %}
+                  <form action="{#{ path('validation') }#}" method="POST">   
+                      <h5>Adresse de Livraison</h5>                     
+                      {% for adresse in user.userAdresses %}
+                         <label class="radio">
+                              {# //si c’est premier index de la boucle loop.index0 == 0 #}
+                              <input type="radio" name="livraison" value="{{ adresse.id }}" {% if    loop.index0 == 0 %}checked="checked"{% endif %}>
+                              {{ adresse.adresse }}, {{ adresse.cp }} {{ adresse.ville }} - {{ adresse.pays}} 
+                              {# //suppression #}
+                              <a href="{{ path('supprimeLivraisonAdresse', { 'id' : adresse.id }) }}">
+                                  <i class="icon-trash">Supprimer</i></a>
+                              <br />{{ adresse.prenom }} {{ adresse.nom }}
+                          </label>
+                      {% endfor %}
+                      <br/>
+                      <h5>Adresse de facturation</h5>
+                      {% for adresse in user.userAdresses %}
+                          <label class="radio">
+                              <div class="col-lg-2 col-md-2">
+                                  <input type="radio" name="facturation" value="{{ adresse.id }}"   {% if loop.index0 == 0 %}checked="checked"{% endif %}> 
+                              </div>
+                              {{ adresse.adresse }}, {{ adresse.cp }} {{ adresse.ville }} - {{ adresse.pays }} 
+                              <a href="{#{ path('livraisonAdresseSuppression', { 'id' : adresse.id }) }#}">
+                              <i class="icon-trash"></i>
+                              </a>
+                              <br />
+                              {{ adresse.prenom }} {{ adresse.nom }}
+                          </label>
+                      {% endfor %}
+                      <br/>
+                      <button class="btn btn-primary">Valider mes adresses</button>
+                  </form>
+                {% endif %}
+            </div>
         
         </div>
       </div>

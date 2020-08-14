@@ -102,7 +102,21 @@ public function supPanier(Produits $produit, SessionInterface $session)
       return $this->redirectToRoute('panier_livraison');
     }
     return $this->render('livraison/livraison.html.twig', [
-       'form'=>$form->createView()
+       'form'=>$form->createView(),
+       'user' =>$user
     ]);
+  }
+  /**
+   * @Route("/sup-livraion-adresse/{id}", name="supprimeLivraisonAdresse")
+   */
+  public function supprimeLivraisonAdresse(UserAdresses $userAdresse)
+  {
+    if($this->getUser()->getEmail() === $userAdresse->getUser()->getEmail()){
+      $manager = $this->getDoctrine()->getManager();
+      $manager->remove($userAdresse);
+      $manager->flush();
+      $this->addFlash('messages','Cette adresse a été bien supprimé');
+      return $this->redirectToRoute('panier_livraison');
+    }
   }
 }
