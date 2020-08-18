@@ -49,7 +49,7 @@
             <div class="col-lg-8 col-md-8">
              {# lister nos adresses on verifie d'abord si l’adresse utilisateur est different de 0, on afffiche les adresses à côte gauche #}
               {% if user.userAdresses|length != 0 %}
-                  <form action="{#{ path('validation') }#}" method="POST">   
+                  <form action="{{ path('panier_valide_adresse') }}" method="POST">   
                       <h5>Adresse de Livraison</h5>                     
                       {% for adresse in user.userAdresses %}
                          <label class="radio">

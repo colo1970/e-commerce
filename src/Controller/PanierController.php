@@ -3,13 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Produits;
+use App\Entity\UserAdresses;
+use App\Form\UserAdresseType;
 use App\Repository\ProduitsRepository;
+use App\Repository\UserAdressesRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\Entity\UserAdresses;
-use App\Form\UserAdresseType;
 
 class PanierController extends AbstractController
 {
@@ -62,7 +63,7 @@ class PanierController extends AbstractController
   /**
  * @Route("/supprimer/{id}", name="panier_prod_sup")
  */
-public function supPanier(Produits $produit, SessionInterface $session)
+public function supPanier(Produits $produit)
 { 
   $panier  = $this->session->get('panier', []);
   $id = $produit->getId();
@@ -118,5 +119,54 @@ public function supPanier(Produits $produit, SessionInterface $session)
       $this->addFlash('messages','Cette adresse a été bien supprimé');
       return $this->redirectToRoute('panier_livraison');
     }
+  }
+  
+/* Cette methode stocke dans un tableau $adresse[]  l'adresse de livraison et de facturation
+    *va etre appeler dans validationAction ()
+   */
+  public function setLivraisonOnSession(Request $request) 
+  {
+      $idAdresses = $this->session->get('idAdresses', []);
+      if($request->request->get('livraison')!= null &&  $request->request->get('facturation') !=null ){
+        $idAdresses['livraison']= $request->request->get('livraison');
+        $idAdresses['facturation']= $request->request->get('facturation');
+      } 
+      else {
+         return $this->redirectToRoute('panier_valide_adresse');
+      }
+
+      $this->session->set('idAdresses', $idAdresses);
+      return $this->redirectToRoute('panier_valide_adresse');
+}
+
+
+  /**
+   * @Route("/valide-adresse", name="panier_valide_adresse")
+   */
+  public function validAdresse(Request $request, UserAdressesRepository $userAdresseRepo, ProduitsRepository $produitsRepo)
+  {
+    if($request->isMethod('post')){
+        $this->setLivraisonOnSession($request);
+        $idAdresses = $this->session->get('idAdresses', []);
+        $userAdresseLiv= $userAdresseRepo->find($idAdresses['livraison']);
+        $userAdresseFact= $userAdresseRepo->find($idAdresses['facturation']);
+        $panier = $this->session->get('panier', []);
+        $produits = $produitsRepo->findByIdPanier(array_keys($panier));
+        return $this->render('validation/validation.html.twig',[
+          'livraison'=>$userAdresseLiv,
+          'facturation'=>$userAdresseFact,
+          'produits'=>$produits,
+          'panier'=>$panier
+        ]);
+    }
+  }
+
+  /**
+   * @Route("/valide-paye", name="panier_valide_paye")
+   */
+  public function validationAction() {
+    
+    $adresses = $this->session->get('idAdresses',[]);
+    return $this->render('validation/validation.html.twig');
   }
 }
