@@ -39,10 +39,10 @@ class Commandes
     private $user;
 
     /**
-     *  contient id du produit acheté et sa quantité
+     * Contient le produit, la livraison, les elements de facturation, prixht, prixTtc, 
      * @ORM\Column(type="array")
      */
-    private $panier = [];
+    private $itemsCommandes = [];
 
     public function getId(): ?int
     {
@@ -97,14 +97,14 @@ class Commandes
         return $this;
     }
 
-    public function getPanier(): ?array
+    public function getItemsCommandes(): ?array
     {
-        return $this->panier;
+        return $this->itemsCommandes;
     }
 
-    public function setPanier(array $panier): self
+    public function setItemsCommandes(array $itemsCommandes): self
     {
-        $this->panier = $panier;
+        $this->itemsCommandes = $itemsCommandes;
 
         return $this;
     }

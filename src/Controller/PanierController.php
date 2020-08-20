@@ -6,7 +6,7 @@ use App\Entity\Produits;
 use App\Entity\UserAdresses;
 use App\Form\UserAdresseType;
 use App\Repository\ProduitsRepository;
-use App\Repository\UserAdressesRepository;
+use App\Repository\CommandesRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -71,7 +71,7 @@ public function supPanier(Produits $produit)
       unset($panier[$id]);
       $this->addFlash('success', 'Produit supprimé');
     } 
-    $session->set('panier', $panier);
+    $this->session->set('panier', $panier);
     return $this->redirectToRoute("panier_index");
 }
   /**
@@ -136,37 +136,25 @@ public function supPanier(Produits $produit)
       }
 
       $this->session->set('idAdresses', $idAdresses);
+
       return $this->redirectToRoute('panier_valide_adresse');
 }
-
 
   /**
    * @Route("/valide-adresse", name="panier_valide_adresse")
    */
-  public function validAdresse(Request $request, UserAdressesRepository $userAdresseRepo, ProduitsRepository $produitsRepo)
+  public function validationAdresse(Request $request, CommandesRepository $commandeRepo)
   {
-    if($request->isMethod('post')){
-        $this->setLivraisonOnSession($request);
-        $idAdresses = $this->session->get('idAdresses', []);
-        $userAdresseLiv= $userAdresseRepo->find($idAdresses['livraison']);
-        $userAdresseFact= $userAdresseRepo->find($idAdresses['facturation']);
-        $panier = $this->session->get('panier', []);
-        $produits = $produitsRepo->findByIdPanier(array_keys($panier));
-        return $this->render('validation/validation.html.twig',[
-          'livraison'=>$userAdresseLiv,
-          'facturation'=>$userAdresseFact,
-          'produits'=>$produits,
-          'panier'=>$panier
-        ]);
-    }
+      if($request->isMethod('post')){
+          $this->setLivraisonOnSession($request);
+      }
+      $prepareCommande = $this->forward('App\Controller\ValidationController::prepareCommande');
+      //On va chercher notre commande fraîchement créée; getContent() recupere le retour de Response dans prepaCommandeAction()
+      $commande = $commandeRepo->find($prepareCommande->getContent());
+
+      return $this->render('validation/validation.html.twig',[
+        'commande'=>$commande
+      ]);
   }
 
-  /**
-   * @Route("/valide-paye", name="panier_valide_paye")
-   */
-  public function validationAction() {
-    
-    $adresses = $this->session->get('idAdresses',[]);
-    return $this->render('validation/validation.html.twig');
-  }
 }
