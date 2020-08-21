@@ -729,5 +729,8 @@ a:focus {
   text-align: left;
   color: #222222;
 }
+.pagination {
+  justify-content: center;
+}
 /* end footer section*/
 /*# sourceMappingURL=style.css.map */
