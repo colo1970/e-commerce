@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="css/facture.css" rel="stylesheet" media="all"/>
+        
+        <title>Facture</title> 
+    </head>
+   <body>
+    <header class="clearfix">
+      <div id="logo">
+        <img src="images/ananas.jpg">
+      </div>
+      <h4>Facture N°FL{{ facture.reference}}</h4>
+      <div id="company" class="clearfix">
+        <div>Fruits & Légumes de Guinée</div>
+        <div>Code postal,<br /> AZ 85004, Conakry</div>
+        <div>(00224) 65 19 04 50</div>
+        <div><a href="mailto:company@example.com">company@example.com</a></div>
+      </div>
+      <div id="project">
+        <div><span>CLIENT</span>{{ facture.itemsCommandes.facturation.nom }} {{ facture.itemsCommandes.facturation.prenom }}</div>
+        <div><span>ADRESSE</span> {{ facture.itemsCommandes.facturation.adresse }}, {{ facture.itemsCommandes.facturation.cp }}, {{ facture.itemsCommandes.facturation.ville }}</div>
+        <div><span>EMAIL</span> <a href="mailto:john@example.com">{{ facture.user.email }}</a></div>
+        <div><span>DATE</span>{{ facture.dateAt|date('d/m/Y') }}</div>
+      </div>
+    </header>
+    <main>
+      <table>
+        <thead>
+          <tr>
+           
+            <th class="desc">DESCRIPTION</th>
+            <th>PRIX</th>
+            <th>QUANTITE</th>
+            <th>MONTANT HT</th>
+            <th>MONTANT TTC</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for produit in facture.itemsCommandes.produit %}
+          <tr>
+           
+            <td class="desc">Creating a recognizable design solution based on the company's existing visual identity</td>
+            <td class="unit">{{ produit.prixHT}} €</td>
+            <td class="qty">{{ produit.quantite }} €</td>
+            <td class="total">{{ produit.prixHT * produit.quantite }} €</td>
+             <td class="total">{{ produit.prixTTC * produit.quantite }} €</td>
+          </tr>
+        {% endfor %}
+     
+          <tr>   <hr>
+            <td colspan="3">TOTAL HT</td>
+            <td class="total">{{ facture.itemsCommandes.prixHT }} €</td>
+          </tr>
+          {% for key, tva in facture.itemsCommandes.tva %}
+          <tr>
+            <td colspan="4">TVA {{ key }}</td>
+            <td class="total">{{ tva }} €</td>
+          </tr>
+          {% endfor %}
+          <tr>
+            <td colspan="4" class="grand total">TOTAL TC</td>
+            <td class="grand total">{{ facture.itemsCommandes.prixTTC }} €</td>
+          </tr>
+        </tbody>
+      </table>
+      <div id="notices">
+        <div>NB:</div>
+        <div class="notice">Nos sont...</div>
+      </div>
+    </main>
+    <footer>
+      La facture a été créée sur un ordinateur.
+    </footer>
+  </body>
+</html>
