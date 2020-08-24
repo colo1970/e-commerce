@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pages index{% endblock %}
+
+{% block body %}
+<div class="sub_page">
+  <div class="hero_area">
+    <!-- header section strats -->
+     {{include('_forms/_header.html.twig')}}
+    <!-- end header section -->
+  </div>
+  <!-- nav section -->
+  {{include('_menus/_navbar.html.twig')}}
+  <section class="contact_section layout_padding">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="offset-lg-2 col-md-10 offset-md-1">
+                <div class="heading_container">
+                    <hr>
+                    <h5>Admin</h5>
+                </div>
+            </div>
+        </div>
+        <div class="layout_padding2-top">
+            <div class="row">
+                <div class="col-lg-3 col-md-3">
+                    {{include("_admin/_menus_vertical_admin.html.twig")}}
+                </div>
+                <div class="col-lg-8 col-md-8">  
+                    {% block body_admin %}{% endblock %}
+                </div>
+            </div>        
+        </div>
+    </div>
+  </section>
+  <!-- end contact section -->
+   
+  <!-- info section -->
+   {{include('_forms/_infos.html.twig')}}
+  <!-- end info section -->
+
+    <!-- footer section -->
+    {{include('_forms/_footer.html.twig')}}
+    <!-- end footer section -->
+  </div>
+  
+{% endblock %}

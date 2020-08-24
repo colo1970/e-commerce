@@ -1,0 +1,17 @@
+{% extends 'admin/menus_admin.html.twig' %}
+
+{% block title %}Editer Contenu{% endblock %}
+
+{% block body_admin %}
+    <h4>Editer Contenu</h4>
+
+    {{ include('admin/pages/_form.html.twig', {'button_label': 'Modifier'}) }}
+
+    <div class="row mt-2">
+        <div class="col-md-8">
+            <div class="text-right">
+                <a href="{{ path('pages_index') }}"><strong>Retour liste</strong></a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

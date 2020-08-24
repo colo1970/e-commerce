@@ -1,0 +1,29 @@
+{% extends 'admin/menus_admin.html.twig' %}
+
+{% block title %}Pages{% endblock %}
+
+{% block body_admin %}
+    <h1>Pages</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ page.id }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ page.titre }}</td>
+            </tr>
+            <tr>
+                <th>Contenu</th>
+                <td>{{ page.contenu }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('pages_index') }}">Retour liste</a>
+
+    <a href="{{ path('pages_edit', {'id': page.id}) }}">Editer</a>
+
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'admin/menus_admin.html.twig' %}
+ {% block body_admin %}
+    <h4>Les contenus</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Contenu</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for page in pages %}
+            <tr>
+                <td>{{ page.id }}</td>
+                <td>{{ page.titre }}</td>
+                <td>{{ page.contenu }}</td>
+                <td>
+                      {{ include('admin/pages/_delete_form.html.twig') }}
+                    <a href="{{ path('pages_edit', {'id': page.id}) }}" class="btn btn-secondary">Editer</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">Pas de contenu</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('pages_new') }}" class="btn btn-primary">Créer un contenu</a>
+ {% endblock %}
