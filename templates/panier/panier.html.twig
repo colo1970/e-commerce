@@ -1,9 +1,6 @@
 {% extends 'base.html.twig' %}
-
 {% block title %}Mon panier{% endblock %}
-
 {% block body %}
-<script src="https://use.fontawesome.com/c560c025cf.js"></script>
 <link href="css/panier.css" rel="stylesheet" />
 <div class="sub_page">
   <div class="hero_area">
@@ -30,8 +27,10 @@
       </div>
       <div class="layout_padding2-top">
         <div class="row">
-          <div class="col-lg-3">
+          <div class="col-lg-3 col-md-3">
+            {% if app.user %}
                 {{include("_menus/_menu_vertical_user.html.twig")}}
+            {%endif%}
           </div>
       
       <div class="col-lg-9">
@@ -60,48 +59,48 @@
             {% set refTva = {} %}
 
             <!-- PRODUCT -->
-                {% for produit in produits %}
-                    <div class="row">
-                        <div class="col-12 col-sm-12 col-md-2 text-center">
-                            <img class="img-responsive" src="http://placehold.it/120x80" alt="prewiew" width="100" height="60">
-                        </div>
-                        <div class="col-12 text-sm-center col-sm-12 text-md-left col-md-4">
-                            <h5>{{produit.nom}}</h5> 
-                        </div>
-                        <div class="col-12 col-sm-12 text-sm-center col-md-6 text-md-right row">
-                            <div class="col-4 col-sm-4 col-md-4">
-                              <form action="{{ path('panier_ajout', { 'id' : produit.id }) }}" method="get">
-                                <select name="qte" class="quantity" onChange="this.form.submit()">
-                                    {% for i in 1..10 %} {# la quantité va de 1 à 10 #}
-                                      <option value="{{i}}"  {% if i == panier[produit.id] %} selected="selected" {% endif %}>
-                                           {{i}}
-                                     </option>
-                                    {% endfor %}
-                                </select>
-                              </form>
-                                  <a href="{{ path('panier_prod_sup', {'id' : produit.id }) }}"> 
-                                 <i class="fa fa-trash" aria-hidden="true"></i>
-                              </a>
-                            </div>
-                            <div class="col-4 col-sm-4 col-md-4 text-right">
-                                <h6><strong>{{produit.prixht}}</strong></h6>
-                            </div>
-                            <div class="col-4 col-sm-4 col-md-4 text-md-right">
-                               <h6><strong>{{produit.prixht * panier[produit.id]}}</strong></h6>
-                            </div>
-                           
-                        </div>
-                    </div>
-                    <hr>
-                    <!-- permet d'avoir les valeurs successives de la tva sans repetiotion; panier[produit.id]=qte --> 
+              {% for produit in produits %}
                   {% set refTva = refTva|merge({('%'~produit.tva.valeur):0}) %}
-                  {% set totalHT = totalHT + (produit.prixht * panier[produit.id]) %}
-                  {% set totalTTC = totalTTC +(produit.prixht * panier[produit.id])|calculTtcProduit(produit.tva.multiplicateur)%}
-                  {% set refTva = refTva|merge({('%' ~produit.tva.valeur) : refTva['%' ~produit.tva.valeur] + 
-                     (produit.prixht * panier[produit.id])|montantTva(produit.tva.multiplicateur) }) %}
-                {% endfor %}
+                  <div class="row">
+                      <div class="col-12 col-sm-12 col-md-2 text-center">
+                          <img class="img-responsive" src="http://placehold.it/120x80" alt="prewiew" width="100" height="60">
+                      </div>
+                      <div class="col-12 text-sm-center col-sm-12 text-md-left col-md-4">
+                          <h6>{{produit.nom}}</h6> 
+                      </div>
+                      <div class="col-12 col-sm-12 text-sm-center col-md-6 text-md-right row">
+                          <div class="col-4 col-sm-4 col-md-4">
+                            <form action="{{ path('panier_ajout', { 'id' : produit.id }) }}" method="get">
+                              <select name="qte" class="quantity" onChange="this.form.submit()">
+                                  {% for i in 1..10 %} {# la quantité va de 1 à 10 #}
+                                    <option value="{{i}}"  {% if i == panier[produit.id] %} selected="selected" {% endif %}>
+                                          {{i}}
+                                    </option>
+                                  {% endfor %}
+                              </select>
+                            </form>
+                                <a href="{{ path('panier_prod_sup', {'id' : produit.id }) }}"> 
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </a>
+                          </div>
+                          <div class="col-4 col-sm-4 col-md-4 text-right">
+                              <h6>{{produit.prixht}} €</h6>
+                          </div>
+                          <div class="col-4 col-sm-4 col-md-4 text-md-right">
+                              <h6><strong>{{produit.prixht * panier[produit.id]}} €</strong></h6>
+                          </div>
+                          
+                      </div>
+                  </div>
+                  <hr>
+                  <!-- permet d'avoir les valeurs successives de la tva sans repetiotion; panier[produit.id]=qte --> 
+                {% set totalHT = totalHT + (produit.prixht * panier[produit.id]) %}
+                {% set totalTTC = totalTTC +(produit.prixht * panier[produit.id])|calculTtcProduit(produit.tva.multiplicateur)%}
+                {% set refTva = refTva|merge({('%' ~produit.tva.valeur) : refTva['%' ~produit.tva.valeur] + 
+                    (produit.prixht * panier[produit.id])|montantTva(produit.tva.multiplicateur) }) %}
+              {% endfor %}
               <!-- END PRODUCT --> 
-                   {% if produits|length != 0 %}
+              {% if produits|length != 0 %}
                 <div class="totals">
                     <div class="totals-item">
                         <label>Total HT</label>
@@ -111,7 +110,7 @@
                     <div class="totals-item">
                       {% for key, tva in refTva %}
                           <label>TVA {{ key }} : </label>  <div class="totals-value" id="cart-tax">{{tva}}</div>
-                      {% endfor %}
+              {% endfor %}
                      
                     </div>
                     <div class="totals-item">
@@ -120,7 +119,7 @@
                     </div>
                     <a href="{{path('panier_livraison')}}" class="btn btn-success pull-right">Valider mon panier</a> 
                     <a href="{{path('produits_produits')}}" class="btn btn-primary">Continuer mes achats</a>
-                  {% endif %}
+            {% endif %}
                 </div>
           </div>
       </div>

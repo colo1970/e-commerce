@@ -16,7 +16,7 @@ class CommandesFixtures extends Fixture implements OrderedFixtureInterface
         $commande1->setValidation('1');
         $commande1->setDateAt(new \DateTime());
         $commande1->setReference('1');
-        $commande1->setPanier(array('0' => array('1' => '2'),
+        $commande1->setItemsCommandes(array('0' => array('1' => '2'),
                                       '1' => array('2' => '1'),
                                       '2' => array('4' => '5')
                                 ));
@@ -27,7 +27,7 @@ class CommandesFixtures extends Fixture implements OrderedFixtureInterface
         $commande2->setValidation('1');
         $commande2->setDateAt(new \DateTime());
         $commande2->setReference('2');
-        $commande2->setPanier(array('0' => array('1' => '2'),
+        $commande2->setItemsCommandes(array('0' => array('1' => '2'),
                                       '1' => array('2' => '1'),
                                       '2' => array('4' => '5')
                                 ));

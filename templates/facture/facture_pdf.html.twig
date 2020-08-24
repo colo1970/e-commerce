@@ -31,7 +31,7 @@
           <tr>
            
             <th class="desc">DESCRIPTION</th>
-            <th>PRIX</th>
+            <th>P.U-HT</th>
             <th>QUANTITE</th>
             <th>MONTANT HT</th>
             <th>MONTANT TTC</th>
@@ -43,12 +43,11 @@
            
             <td class="desc">Creating a recognizable design solution based on the company's existing visual identity</td>
             <td class="unit">{{ produit.prixHT}} €</td>
-            <td class="qty">{{ produit.quantite }} €</td>
+            <td class="qty">{{ produit.quantite }} </td>
             <td class="total">{{ produit.prixHT * produit.quantite }} €</td>
-             <td class="total">{{ produit.prixTTC * produit.quantite }} €</td>
+            <td class="total">{{ produit.prixTTC * produit.quantite }} €</td>
           </tr>
         {% endfor %}
-     
           <tr>   <hr>
             <td colspan="3">TOTAL HT</td>
             <td class="total">{{ facture.itemsCommandes.prixHT }} €</td>

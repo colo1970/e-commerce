@@ -66,9 +66,9 @@ class ValidationController extends AbstractController
   public function itemsCommandes()
   {
     //tableau qui stockera toutes les infos sur une commande
-    $commandes = array();
+    $commandes = [];
     $totalHT = 0;
-    $totalTVA = 0;
+    $totalTVA = 0; 
     //generer  un token pour api de payement
     $tokenGenerer = $this->tokenGenerer->generateToken();
     //Recupere l'adresse et le panier à partir de la session
@@ -78,8 +78,8 @@ class ValidationController extends AbstractController
     $userAdresseFact= $this->getDoctrine()->getRepository(UserAdresses::class)->find($idAdresses['facturation']);
     $produits = $this->getDoctrine()->getRepository(Produits::class)->findByIdPanier(array_keys($panier));
     foreach ($produits as $produit) {
-      $prixHT = $produit->getPrixHt()* $panier[$produit->getId()];
-      $prixTTC = $produit->getPrixHt() * $panier[$produit->getId()] / $produit->getTva()->getMultiplicateur();
+      $prixHT = ($produit->getPrixht() * $panier[$produit->getId()]);
+      $prixTTC = ($produit->getPrixht() * $panier[$produit->getId()] / $produit->getTva()->getMultiplicateur());
       $totalHT += $prixHT;
       if (!isset($commandes['tva']['%' . $produit->getTva()->getValeur()])){
         //commandes tableau 2 dimension key : tva et valeur tva, il va contienir la tva de chaque produit, genre commandes["tva"]["%20"]
@@ -97,30 +97,30 @@ class ValidationController extends AbstractController
           'prixTTC' => round($produit->getPrixht() / $produit->getTva()->getMultiplicateur(), 2));
       }  
       //infos sur la livraison
-      $commandes['livraison'] = array('prenom' => $userAdresseLiv->getPrenom(),
+      $commandes['livraison'] = ['prenom' => $userAdresseLiv->getPrenom(),
           'nom' => $userAdresseLiv->getNom(),
           'telephone' => $userAdresseLiv->getTelephone(),
           'adresse' => $userAdresseLiv->getAdresse(),
           'cp' => $userAdresseLiv->getCp(),
           'ville' => $userAdresseLiv->getVille(),
           'pays' => $userAdresseLiv->getPays(),
-          'complements' => $userAdresseLiv->getComplements());
+          'complements' => $userAdresseLiv->getComplements()
+      ];
         //pour facturation
-      $commandes['facturation'] = array('prenom' => $userAdresseFact->getPrenom(),
+      $commandes['facturation'] = ['prenom' => $userAdresseFact->getPrenom(),
           'nom' => $userAdresseFact->getNom(),
           'telephone' => $userAdresseFact->getTelephone(),
           'adresse' => $userAdresseFact->getAdresse(),
           'cp' => $userAdresseFact->getCp(),
           'ville' => $userAdresseFact->getVille(),
           'pays' => $userAdresseFact->getPays(),
-          'complements' => $userAdresseFact->getComplements());
+          'complements' => $userAdresseFact->getComplements()
+      ];
       //stocker le prix ht, ttc et le token
       $commandes['prixHT'] = round($totalHT, 2);
-
       $commandes['prixTTC'] = round($totalHT + $totalTVA, 2);
-      // 20 est la longeur de la chaine de notre token, choix de l'encodage bin2hex
-      $commandes['token'] = $tokenGenerer; //bin2hex($tokenGenerer->nextBytes(20));
-      //puis retour le tab commande
+      $commandes['token'] = $tokenGenerer; 
+  
     return $commandes;
   }
 
@@ -129,19 +129,27 @@ class ValidationController extends AbstractController
   * @Route("/banque-validation/{id}", name="panier_api_banque")
   */
 
-  public function validationCommande($id, Reference $reference)
-  { 
+  public function validationCommande($id, Reference $reference, \Swift_Mailer $mailer)
+  {  
       $commande = $this->getDoctrine()->getRepository(Commandes::class)->find($id);
       if (!$commande || $commande->getValidation() == 1){
         throw $this->createNotFoundException('La commande n\'existe pas');
       }
       $commande->setValidation(1);
-      $commande->setReference($reference->addReference()); //Service $reference->getReference()
+      $commande->setReference($reference->addReference()); 
       $this->manager->flush();   
       $this->session->remove('adresse');
       $this->session->remove('panier');
       $this->session->remove('commande');
-      
+      //envoie mail confirmation achat
+      $message = (new \Swift_Message('Validation du payement'))
+      ->setFrom('fruitslegumesguinee@gmail.com')
+      ->setTo($this->getUser()->getEmail())
+      ->setBody("Bonjour,<br><br> Votre payement a été bien accepté, merci d'avoir commandé sur fruits&egumes-guinee.com.", 
+           "text/html"
+      ) ;
+      // On envoie l'e-mail
+      $mailer->send($message);
       $this->addFlash('success','Votre commande est validé avec succès');
       return $this->redirectToRoute('produits_produits');
   }

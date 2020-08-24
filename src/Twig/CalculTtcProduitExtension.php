@@ -18,7 +18,7 @@ class CalculTtcProduitExtension extends AbstractExtension
     *Calcul Ttc d'un produit
     */
     public function calculTtcProduit($prixHT,$mutiplicateur){
-        return round($prixHT/$mutiplicateur,2);
+        return round($prixHT/$mutiplicateur, 2);
     }
  
 }

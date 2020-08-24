@@ -11,15 +11,15 @@
             <div class="box">
                 {#<img src="images/f-2.jpg" alt=""> images/f-4.jpg images/f-5.jpg images/f-6.jpg#}
                 <img src="images/f-1.jpg" alt="" width="90" height="300">
-                  <div class="row">
-                <h5 class="col-md-4"><a href="#">{{produit.nom}}</a></h5>
-                <h5 class="col-md-4">{{produit.prixht|calculTtcProduit(produit.tva.multiplicateur)}} €</h5> 
-            </div>
+                <div class="row">
+                <h6 class="col-lg-7 col-md-7 col-offset-1"><a href="#">{{produit.nom}} </a></h6>
+                <h5 class="col-lg-4 col-md-4">{{produit.prixht|calculTtcProduit(produit.tva.multiplicateur)}} €</h5> 
+                </div>
                 <!--S'il y a un produit dans mon panier j'affiche son bouton ajouter au panier -->
                 {% if panier[produit.id] is not defined %}
-                  <a class="btn btn-success" href="{{path('panier_ajout',{id:produit.id})}}">Ajouter panier</a> 
+                   <a class="btn btn-success" href="{{path('panier_ajout',{id:produit.id})}}">Ajouter panier</a> 
                 {% endif %}
-                  <a class="btn btn-primary" href="{{path('produits_presentation', {id:produit.id})}}">Plus d'infos</a>
+                <a class="btn btn-primary" href="{{path('produits_presentation', {id:produit.id})}}">Plus d'infos</a>
             </div>
         {% endfor %}
     </div>

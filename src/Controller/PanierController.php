@@ -20,7 +20,7 @@ class PanierController extends AbstractController
      $this->session = $session;
   }
 
-    /**
+  /**
    * @Route("/panier", name="panier_index")
    */
   public function panier(ProduitsRepository $produitsRepo)
@@ -33,7 +33,7 @@ class PanierController extends AbstractController
       ]);
   }
 
-      /**
+  /**
    * @Route("/panier/{id}", name="panier_ajout")
    */
   public function addPanier(Request $request, Produits $produit)

@@ -28,8 +28,12 @@
       </div>
       <div class="layout_padding2-top">
         <div class="row">
-           {{include("_menus/_menu_vertical_user.html.twig")}}
-          <div class="col-lg-4">
+          <div class="col-lg-3 col-md-3">
+            {% if app.user %}
+                {{include("_menus/_menu_vertical_user.html.twig")}}
+            {% endif %}
+          </div>
+          <div class="col-lg-4 col-4">
             {% for message in app.flashes('message') %}
               <div class="alert-success">
                  {{message}}
