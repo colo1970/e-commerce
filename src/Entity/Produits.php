@@ -2,8 +2,9 @@
 
 namespace App\Entity;
 
-use App\Repository\ProduitsRepository;
+use App\Entity\Image;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ProduitsRepository;
 
 /**
  * @ORM\Entity(repositoryClass=ProduitsRepository::class)
@@ -53,7 +54,7 @@ class Produits
     private $dateCreaAt;
 
     /**
-     * @ORM\OneToOne(targetEntity=Image::class, inversedBy="produits", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=Image::class, inversedBy="produit", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $image;
@@ -198,4 +199,5 @@ class Produits
 
         return $this;
     }
+
 }
