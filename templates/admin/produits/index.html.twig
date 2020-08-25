@@ -1,0 +1,41 @@
+{% extends 'admin/menus_admin.html.twig' %}
+ {% block body_admin %}
+    <h4>Liste  Produits</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Prixht</th>
+                <th>Quantite</th>
+                <th>Poids</th>
+                <th>Disponibilite</th>
+                <th>Date création</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for produit in produits %}
+            <tr>
+                <td>{{ produit.id }}</td>
+                <td>{{ produit.nom }}</td>
+                <td>{{ produit.prixht }}</td>
+                <td>{{ produit.quantite }}</td>
+                <td>{{ produit.poids }}</td>
+                <td>{{ produit.disponibilite ? 'Oui' : 'Non' }}</td>
+                <td>{{ produit.dateCreaAt ? produit.dateCreaAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('admin_produits_show', {'id': produit.id}) }}">show</a>
+                    <a href="{{ path('admin_produits_edit', {'id': produit.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">Pas de produit</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('admin_produits_new') }}">Créer un produit</a>
+{% endblock %}

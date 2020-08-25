@@ -1,0 +1,8 @@
+{% extends 'admin/menus_admin.html.twig' %}
+{% block body_admin %}
+<h4>Créer un Produit</h4>
+
+{{ include('admin/produits/_form.html.twig') }}
+
+    <a href="{{ path('admin_produits_index') }}">Retour Liste</a>
+{% endblock %}

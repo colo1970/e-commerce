@@ -2,26 +2,26 @@
 
 namespace App\Form;
 
-use App\Entity\Pages;
+use App\Entity\Image;
 use Symfony\Component\Form\AbstractType;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class PagesType extends AbstractType
+class ImageType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('titre')
-            ->add('contenu', CKEditorType::class)
+            ->add('path')
+            ->add('alt')
+            //->add('produits')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Pages::class,
+            'data_class' => Image::class,
         ]);
     }
 }
