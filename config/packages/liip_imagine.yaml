@@ -1,0 +1,19 @@
+liip_imagine:
+  filter_sets:
+    thumb:
+      quality: 75
+      filters:
+        thumbnail:
+          size:          [120, 80]
+          mode:          outbound
+    medium:
+      quality: 75
+      filters:
+        thumbnail:
+          size:          [700, 400]
+          mode:          outbound
+    reduc:
+        quality: 85
+        filters:
+            scale:
+                dim: [ 200, 250 ]

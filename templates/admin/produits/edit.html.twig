@@ -1,13 +1,13 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/menus_admin.html.twig' %}
+ {% block body_admin %}
+    <h4>Liste  Produits</h4>
+    {{ include('admin/produits/_form.html.twig', {'button_label': 'Modifier'}) }}
+     <div class="row mt-2">
+        <div class="col-md-8">
+            <div class="text-right">
+                <a href="{{ path('admin_produits_index') }}">Retour Liste</a>
+                 </div>
+        </div>
+    </div>
 
-{% block title %}Edit Produits{% endblock %}
-
-{% block body %}
-    <h1>Edit Produits</h1>
-
-    {{ include('admin/produits/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('admin_produits_index') }}">back to list</a>
-
-    {{ include('admin/produits/_delete_form.html.twig') }}
 {% endblock %}

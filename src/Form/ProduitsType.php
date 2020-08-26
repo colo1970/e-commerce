@@ -7,6 +7,7 @@ use App\Form\ImageType;
 use App\Entity\Produits;
 use App\Entity\Categories;
 use Symfony\Component\Form\AbstractType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -18,7 +19,7 @@ class ProduitsType extends AbstractType
         $builder
             ->add('nom')
             ->add('prixht')
-            ->add('description')
+            ->add('description', CKEditorType::class)
             ->add('quantite')
             ->add('poids')
             ->add('disponibilite')

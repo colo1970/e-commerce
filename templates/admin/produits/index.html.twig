@@ -4,29 +4,27 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Nom</th>
-                <th>Prixht</th>
+                <th>Prix HT</th>
                 <th>Quantite</th>
                 <th>Poids</th>
-                <th>Disponibilite</th>
+                <th>Disponible</th>
                 <th>Date création</th>
-                <th>actions</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for produit in produits %}
             <tr>
-                <td>{{ produit.id }}</td>
                 <td>{{ produit.nom }}</td>
                 <td>{{ produit.prixht }}</td>
                 <td>{{ produit.quantite }}</td>
                 <td>{{ produit.poids }}</td>
                 <td>{{ produit.disponibilite ? 'Oui' : 'Non' }}</td>
-                <td>{{ produit.dateCreaAt ? produit.dateCreaAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ produit.dateCreaAt ? produit.dateCreaAt|date('d-m-Y') : '' }}</td>
                 <td>
-                    <a href="{{ path('admin_produits_show', {'id': produit.id}) }}">show</a>
-                    <a href="{{ path('admin_produits_edit', {'id': produit.id}) }}">edit</a>
+                     {{ include('admin/produits/_delete_form.html.twig') }}
+                    <a href="{{ path('admin_produits_edit', {'id': produit.id}) }}" class="btn btn-secondary">Editer</a>
                 </td>
             </tr>
         {% else %}
@@ -37,5 +35,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('admin_produits_new') }}">Créer un produit</a>
+    <a href="{{ path('admin_produits_new') }}" class="btn btn-primary">Créer un produit</a>
 {% endblock %}

@@ -5,9 +5,11 @@ namespace App\Entity;
 use App\Entity\Image;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ProduitsRepository;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=ProduitsRepository::class)
+ * @Vich\Uploadable()
  */
 class Produits
 {

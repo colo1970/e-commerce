@@ -732,6 +732,9 @@ a:focus {
 .pagination {
   justify-content: center;
 }
-
+.radio_size {
+  height:1em; 
+  width:1em;
+}
 /* end footer section*/
 /*# sourceMappingURL=style.css.map */

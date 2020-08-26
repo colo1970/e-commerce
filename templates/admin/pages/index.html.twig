@@ -4,7 +4,6 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Titre</th>
                 <th>Contenu</th>
                 <th>actions</th>
@@ -13,9 +12,8 @@
         <tbody>
         {% for page in pages %}
             <tr>
-                <td>{{ page.id }}</td>
-                <td>{{ page.titre }}</td>
-                <td>{{ page.contenu }}</td>
+                <td>{{ page.titre|raw }}</td>
+                <td>{{ page.contenu|raw }}</td>
                 <td>
                       {{ include('admin/pages/_delete_form.html.twig') }}
                     <a href="{{ path('pages_edit', {'id': page.id}) }}" class="btn btn-secondary">Editer</a>
