@@ -1,0 +1,31 @@
+{% extends 'admin/menus_admin.html.twig' %}
+   {% block body_admin %}
+      <h1>Liste factures</h1>
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Références</th>
+                <th>Date</th>
+                <th>Prix TTC</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+                  {#  si l'utilisateur n'a pass commandé on ne oeut pas consulter safacture #}
+            {% if user.commandes|length == 0 %}
+                <tr>
+                    <td colspan="4"><center>Ancunne facture actuellement.</center></td>
+                </tr>
+            {% endif %}
+            {% for facture in user.commandes %}
+            <tr>
+                <td>ref : {{ facture.reference }}</td>
+                <td>{{ facture.dateAt|date('d/m/Y') }}</td>
+                <td>{{ facture.itemsCommandes.prixTTC }} €</td>
+                <td><a href="{{ path('user_facture_pdf', { 'id' : facture.id }) }}" target="_blank"><i class="icon-refresh">Facture pdf</i></a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+   {% endblock %}

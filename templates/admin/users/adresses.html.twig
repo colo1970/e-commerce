@@ -1,0 +1,15 @@
+{% extends 'admin/menus_admin.html.twig' %}
+   {% block body_admin %}
+        <h4>Liste Adresses</h4>
+        {% for adresse in user.userAdresses %}
+            <div class="span12">
+                <div class="span4">
+                {# loop.index pour incrementer les adresses #}
+                    <h4>Adresse {{ loop.index }} :</h4>
+                    {{ adresse.adresse }}, {{ adresse.cp }} {{ adresse.ville }} - {{ adresse.pays }}
+                    <br>{{ adresse.prenom }} {{ adresse.nom }}
+                    <br /><br />
+                </div>
+            </div>
+        {% endfor %}
+   {% endblock %}

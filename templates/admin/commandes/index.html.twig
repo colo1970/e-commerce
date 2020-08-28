@@ -1,0 +1,30 @@
+{% extends 'admin/menus_admin.html.twig' %}
+   {% block body_admin %}
+    <h4>Liste Commandes</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Référence</th>
+                <th>Client</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for commande in commandes %}
+            <tr>
+                <td>{{ commande.dateAt ? commande.dateAt|date('d-m-Y H:i:s') : '' }}</td>
+                <td>{{ commande.reference }}</td>
+                <td>{{ commande.User.username }}</td>
+                <td>
+                    <a href="{{ path('admin_commandes_show', {'id': commande.id})}}"><i class="fa fa-book" aria-hidden="true"></i></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">Pas de commande</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

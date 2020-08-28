@@ -30,7 +30,7 @@
         <thead>
           <tr>
            
-            <th class="desc">DESCRIPTION</th>
+            <th class="desc">LIBELLE</th>
             <th>P.U-HT</th>
             <th>QUANTITE</th>
             <th>MONTANT HT</th>
@@ -41,7 +41,7 @@
         {% for produit in facture.itemsCommandes.produit %}
           <tr>
            
-            <td class="desc">Creating a recognizable design solution based on the company's existing visual identity</td>
+            <td class="desc">{{produit.reference}}</td>
             <td class="unit">{{ produit.prixHT}} €</td>
             <td class="qty">{{ produit.quantite }} </td>
             <td class="total">{{ produit.prixHT * produit.quantite }} €</td>
