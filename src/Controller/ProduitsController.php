@@ -21,7 +21,7 @@ class ProduitsController extends AbstractController
         if(!$produitsRepo){
            throw $this->createNotFoundException('Pas produit disponible');
         }
-        $produits = $paginator->paginate($produitsRepo, $request->query->getInt('page', 1), 2 );
+        $produits = $paginator->paginate($produitsRepo, $request->query->getInt('page', 1), 2);
         //S'il y a un produit dans mon panier j'enleve son bouton ajouter au panier
         $panier = $session->get('panier', []) ;
         return $this->render('produits/produits.html.twig', [

@@ -5,14 +5,13 @@
             <nav class="navbar navbar-expand custom_nav-container navbar-fixed-top">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
-                </button>
-                
+                </button> 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <div class="d-flex  flex-column flex-lg-row align-items-center">
                         <ul class="nav navbar-nav collapse navbar-collapse">
                             <li class="nav-item active">
                             <a class="nav-link" href="{{path('produits_produits')}}">Accueil <span class="sr-only">(current)</span></a>
-                            </li>
+                            </li>                       
                             {# <li class="nav-item">
                             <a class="nav-link" href="{{path('apropos')}}">A propos </a>
                             </li> #}
@@ -26,18 +25,25 @@
                                 <a class="nav-link" href="{#{path('produits_fruit')}#}">Produits Frais </a>
                             </li>
                             <li class="nav-item">
-                            {{render(path('panier_quantite_dans_panier'))}}
+                               {{render(path('panier_quantite_dans_panier'))}}
                             </li>
-                            {% if app.user %}
-                            <li class="nav-item">
-                                <a href="{{ path('app_logout') }}" class="nav-link">Me déconnecter</a>
+                            <li class="dropdown nav-item active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Mon Compte</a>
+                                <div class="dropdown-menu">
+                                    {% if app.user %}
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="{{ path('app_logout')}}">Me déconnecter</a>
+                                        <div class="dropdown-divider"></div>
+                                    {% else %}
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="{{ path('app_login')}}">Se connecter</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="{{ path('app_register')}}">S'inscrire</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="{{ path('registration_forgotten')}}">Mot de passe oublié</a>
+                                    {% endif %}
+                                </div>
                             </li>
-                            {% else %}
-                            <li class="nav-item">
-                                <a href="{{ path('app_login') }}" class="nav-link">Se connecter</a>
-                            </li>
-                            {% endif %}
-
                         </ul>
                         <form class="form-inline my-2 my-lg-0 ml-0 ml-lg-4 mb-3 mb-lg-0">
                             <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit"></button>
