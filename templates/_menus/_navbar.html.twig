@@ -31,11 +31,10 @@
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Mon Compte</a>
                                 <div class="dropdown-menu">
                                     {% if app.user %}
-                                        <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="{{ path('app_logout')}}">Me déconnecter</a>
-                                        <div class="dropdown-divider"></div>
+                                        <div class="dropdown-divider"></div>                                      
+                                        <a class="dropdown-item" href="{{ path('registration_gerer_profil')}}">Gérer votre compte</a>
                                     {% else %}
-                                        <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="{{ path('app_login')}}">Se connecter</a>
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="{{ path('app_register')}}">S'inscrire</a>

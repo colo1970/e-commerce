@@ -169,11 +169,19 @@ class RegistrationController extends AbstractController
         return $this->render('registration/edit_infos.html.twig');
     }
 
-      /**
+    /**
     * @Route("/change-password", name="registration_change_password")
     */
     public function changePassword()
     {
         return $this->render('registration/change_password.html.twig');
+    }
+
+    /**
+    * @Route("/gerer-profil", name="registration_gerer_profil")
+    */
+    public function gestionProfil()
+    {
+        return $this->render('registration/gestion_profil.html.twig');
     }
 }
