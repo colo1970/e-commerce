@@ -25,8 +25,8 @@ class UserFixtures extends Fixture implements OrderedFixtureInterface
         $manager->persist($user1);
 
         $user2= new User();
-        $user2->setEmail('fred@laposte.net');
-        $password = $this->encoder->encodePassword($user2, 'fred');
+        $user2->setEmail('o.daffe@laposte.net');
+        $password = $this->encoder->encodePassword($user2, 'dev');
         $user2->setPassword($password);
         $manager->persist($user2);
 

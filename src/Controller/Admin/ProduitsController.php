@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/produits/admin")
+ * @Route("/admin/produits")
  */
 class ProduitsController extends AbstractController
 {
