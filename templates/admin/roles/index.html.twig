@@ -1,0 +1,45 @@
+{% extends 'admin/menus_admin.html.twig' %}
+ {% block body_admin %}
+    <h4>Liste  Users</h4>
+    <table class="table">
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Rôles</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.username }}</td>
+                <td>
+                    {% for role in user.roles %}
+                       {% if role == "ROLE_USER" %}
+                                Utilisateur
+                            {% elseif role == "ROLE_EDITEUR" %}
+                                Editeur
+                            {% elseif role == "ROLE_ADMIN" %}
+                                Administrateur
+                            {% endif %}
+                    {% endfor %}
+                </td>
+                <td>
+                    <a href="{{ path('admin_roles_edit', {'id': user.id}) }}" class="btn btn-secondary">Editer</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">Pas de User</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{#{ path('app_register') }#}" class="btn btn-primary">Retour</a>
+{% endblock %}

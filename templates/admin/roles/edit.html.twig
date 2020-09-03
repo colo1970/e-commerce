@@ -1,0 +1,17 @@
+{% extends 'admin/menus_admin.html.twig' %}
+ {% block body_admin %}
+    <h4>Modifier</h4>
+    {{ form_start(form) }}
+    <div class="row">
+        <div class="form-group col-md-6">
+            {{ form_widget(form.email, {'attr':{'class':'form-control'}})}}
+        </div>
+        <div class="col-md-1 offset-md-1 custom-control-inline">
+                <div class="form-check">
+                    {{ form_widget(form.roles, {'attr':{'class':'form-check-input'}})}} 
+                </div>
+        </div>
+    </div>
+    <button class="btn btn-primary mt-2">Modifier</button>
+    {{ form_end(form) }}
+{% endblock %}
