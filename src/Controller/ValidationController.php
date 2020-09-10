@@ -97,9 +97,9 @@ class ValidationController extends AbstractController
           'prixTTC' => round($produit->getPrixht() / $produit->getTva()->getMultiplicateur(), 2));
       }  
       //infos sur la livraison
-      $commandes['livraison'] = ['prenom' => $userAdresseLiv->getPrenom(),
-          'nom' => $userAdresseLiv->getNom(),
-          'telephone' => $userAdresseLiv->getTelephone(),
+      $commandes['livraison'] = ['prenom' => $this->getUSer()->getPrenom(),
+          'nom' => $this->getUSer()->getNom(),
+          'telephone' => $this->getUSer()->getTelephone(),
           'adresse' => $userAdresseLiv->getAdresse(),
           'cp' => $userAdresseLiv->getCp(),
           'ville' => $userAdresseLiv->getVille(),
@@ -107,9 +107,9 @@ class ValidationController extends AbstractController
           'complements' => $userAdresseLiv->getComplements()
       ];
         //pour facturation
-      $commandes['facturation'] = ['prenom' => $userAdresseFact->getPrenom(),
-          'nom' => $userAdresseFact->getNom(),
-          'telephone' => $userAdresseFact->getTelephone(),
+      $commandes['facturation'] = ['prenom' => $this->getUSer()->getPrenom(),
+          'nom' => $this->getUSer()->getNom(),
+          'telephone' => $this->getUSer()->getTelephone(),
           'adresse' => $userAdresseFact->getAdresse(),
           'cp' => $userAdresseFact->getCp(),
           'ville' => $userAdresseFact->getVille(),
