@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
- * @Route("/commandes/admin")
+ * @Route("/admin/commandes")
 */
 class CommandesController extends AbstractController
 {

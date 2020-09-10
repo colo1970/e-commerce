@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
-* @Route("/users/admin")
+* @Route("/admin/users")
 */
 class UserController extends Controller
 {    
