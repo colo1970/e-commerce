@@ -48,11 +48,11 @@
                                 <label class="radio">
                                   {# //si c’est premier index de la boucle loop.index0 == 0 #}
                                       <input type="radio"  style="height:1em; width:1em;" name="livraison" value="{{ adresse.id }}" {% if loop.index0 == 0 %}checked="checked"{% endif %}>
-                                      {{ adresse.adresse }}, {{ adresse.cp }} {{ adresse.ville }} - {{ adresse.pays}} 12, rue Gorge de loup 69009 Lyon
+                                      {{ adresse.adresse }}, {{ adresse.cp }} {{ adresse.ville }} - {{ adresse.pays}} 
                                       {# //suppression #}
                                       <a href="{{ path('supprimeLivraisonAdresse', { 'id' : adresse.id }) }}">
                                         <i class="fa fa-trash" aria-hidden="true"></i></a>
-                                      <br/>{{ adresse.prenom }} {{ adresse.nom }}
+                                      <br/>{{ user.prenom }} {{ user.nom }}
                                 </label>
                               {% endfor %}
                         </div>
@@ -67,7 +67,7 @@
                                     <a href="{#{ path('livraisonAdresseSuppression', { 'id' : adresse.id }) }#}">
                                         <i class="fa fa-trash" aria-hidden="true"></i>
                                     </a>
-                                    <br/>{{ adresse.prenom }} {{ adresse.nom }}
+                                    <br/>{{ user.prenom }} {{ user.nom }}
                                 </label>
                             {% endfor %}
                         </div>

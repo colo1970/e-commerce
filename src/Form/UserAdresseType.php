@@ -14,25 +14,13 @@ class UserAdresseType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom',TextType::class, [
+            ->add('adresse',TextType::class, [
                 'label'=>false, 
-                'attr'=>['placeholder'=>'Nom']
-            ])
-            ->add('prenom',TextType::class, [
-                'label'=>false, 
-                'attr'=>['placeholder'=>'Prénom']
-            ])
-            ->add('telephone',NumberType::class, [
-                'label'=>false, 
-                'attr'=>['placeholder'=>'Téléphone']
+                'attr'=>['placeholder'=>'Adresse']
             ])
             ->add('cp',TextType::class, [
                 'label'=>false, 
                 'attr'=>['placeholder'=>'Cp']
-            ])
-            ->add('adresse',TextType::class, [
-                'label'=>false, 
-                'attr'=>['placeholder'=>'Adresse']
             ])
             ->add('ville',TextType::class, [
                 'label'=>false, 

@@ -36,10 +36,19 @@
               <div class="contact_form-container">
                 <div>
                   <div>
+                    {{ form_row(registrationForm.nom) }}
+                  </div>
+                    <div>
+                    {{ form_row(registrationForm.prenom) }}
+                  </div>
+                    <div>
                     {{ form_row(registrationForm.email) }}
                   </div>
-				  <div>
+				          <div>
                     {{ form_row(registrationForm.plainPassword) }}
+                  </div>
+                  <div>
+                    {{ form_row(registrationForm.telephone) }}
                   </div>
                   <div>
                     <button type="submit">Envoyer</button>
