@@ -72,15 +72,15 @@
                           <div class="col-4 col-sm-4 col-md-4">
                             <form action="{{ path('panier_ajout', { 'id' : produit.id }) }}" method="get">
                               <select name="qte" class="quantity" onChange="this.form.submit()">
-                                  {% for i in 1..10 %} {# la quantité va de 1 à 10 #}
+                                  {% for i in 5..50 %} {# la quantité va de 1 à 10 #}
                                     <option value="{{i}}"  {% if i == panier[produit.id] %} selected="selected" {% endif %}>
                                           {{i}}
                                     </option>
                                   {% endfor %}
-                              </select>
+                              </select>  
                             </form>
-                                <a href="{{ path('panier_prod_sup', {'id' : produit.id }) }}"> 
-                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            <a href="{{ path('panier_prod_sup', {'id' : produit.id }) }}"> 
+                            <i class="fa fa-trash" aria-hidden="true"></i>
                             </a>
                           </div>
                           <div class="col-4 col-sm-4 col-md-4 text-right">
