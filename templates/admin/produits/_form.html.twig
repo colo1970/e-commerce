@@ -38,9 +38,9 @@
             <label for="image">Image</label>
             {{ form_widget(form.image.imageFile, {'attr':{'class':'form-control'}})}}
                  {% if produit.image %} 
-                    <img src="{{ vich_uploader_asset(produit.image, 'imageFile') | imagine_filter('thumb') }}" alt="card-img-top" style="width: 100%; height:auto;">
+                    <img src="{{ vich_uploader_asset(produit.image, 'imageFile') | imagine_filter('reduc') }}" alt="card-img-top">
                     {% else %}
-                    <img src="{{ '/images/empty.jpg' | imagine_filter('thumb') }}" alt="card-img-top" style="width: 100%; height:auto;">
+                    <img src="{{ '/images/empty.jpg' | imagine_filter('reduc') }}" alt="card-img-top" style="width: 100%; height:auto;">
                 {% endif %}
         </div>
     </div>
