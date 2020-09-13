@@ -22,31 +22,33 @@
         <div class="offset-lg-2 col-md-10 offset-md-1">
           <div class="heading_container">
             <hr>
-            <h4>Editer les infos </h4>
+            <h4>Modifier mes infos </h4>
           </div>
         </div>
       </div>
       <div class="layout_padding2-top">
         <div class="row">
            {{include("_menus/_menu_vertical_user.html.twig")}}
-           <form method="post">
+           {{form_start(form)}}
               <div class="contact_form-container">
                 <div>
-                  <div>
-                    <input type="password" name="password" id="inputPassword" placeholder="Mot de passe" required>
+                    {{form_widget(form.nom)}}
                   </div>
                   <div>
-                    <input type="password" name="password" id="inputPassword" placeholder="Mot de passe" required>
+                     {{form_widget(form.prenom)}}
                   </div>
                   <div>
-                    <input type="password" name="password" id="inputPassword" placeholder="Mot de passe" required>
+                     {{form_widget(form.email)}}
+                  </div>
+                  <div>
+                     {{form_widget(form.telephone)}}
                   </div>
                   <div>
                     <button type="submit">Modifier</button>
                   </div>
                 </div>
               </div>
-            </form>
+            {{ form_end(form, {'render_rest': false}) }}
         </div>
       </div>
     </div>

@@ -158,15 +158,27 @@ class RegistrationController extends AbstractController
     */
     public function infos()
     {
-        return $this->render('registration/mes_infos.html.twig');
+        
+        return $this->render('registration/mes_infos.html.twig', [
+            'user'=>$this->getUser()
+        ]);
     }
 
       /**
     * @Route("/edit-info", name="registration_edit_infos")
     */
-    public function editInfo()
+    public function editInfo(Request $request, EntityManagerInterface $manager)
     {
-        return $this->render('registration/edit_infos.html.twig');
+        $user = $this->getUser();
+        $form = $this->createForm(RegistrationFormType::class, $user);
+        $form->handleRequest($request);
+        if($form->isSubmitted()){
+            $manager->flush();
+          return $this->redirectToRoute('registration_infos');
+        }
+        return $this->render('registration/edit_infos.html.twig', [
+            'form' =>$form->createView()
+        ]);
     }
 
     /**
